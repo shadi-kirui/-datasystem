@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login/Register</title>
+	<link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+
+
+	{% block content %}
+	{% if page == 'login' %}
+	<div>
+		<form method="POST">
+			{% csrf_token %}
+			<label for="">Username:</label>
+			<input type="text" name="username" placeholder="username">
+			<label for="">password:</label>
+			<input type="password" name="password" placeholder="password">
+			<input type="submit" value="Submit" />
+			<p>Haven't <a href="{% url 'register' %}">signed up</a></p>
+		</form>
+	</div>
+	{% else %}
+	<div>
+		<form method="POST">
+			{% csrf_token %}
+			{{form.as_p}}
+			<input type="submit" value="Register" />
+			<p>Already registered
+				<a href="{% url 'login' %}">log in</a>
+			</p>
+
+		</form>
+	</div>
+	{% endif %}
+	{% endblock %}
+</body>
+
+</html>

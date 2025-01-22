@@ -1,0 +1,231 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livestock Farmers Dashboard</title>
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+
+
+</head>
+
+<body>
+    <header>
+
+
+        <div>
+            <h1>DATA COLLECTION</h1>
+        </div>
+        <h2>welcome {{user.username}}</h2>
+        <div class="left">
+            <a href="#livestock">Livestock Farmer</a>
+            <a href="#fodder">Fodder Farmer</a>
+            <a href="#infrastracture">Infrastructure</a>
+            <a href="#capacity">Capacity Building</a>
+        </div>
+        <div class="login-logout">
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            {% endif %}
+        </div>
+
+    </header>
+
+    <div class="main-container">
+        <div class="sidebar">
+            <a href="#livestock">Livestock Farmer</a>
+            <a href="#fodder">Fodder Farmer</a>
+            <a href="#infrastracture">Infrastructure</a>
+            <a href="#capacity">Capacity Building</a>
+        </div>
+
+        <div class="container">
+            <form method="POST" action="">
+                {% csrf_token %}
+                {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                <section id="livestock">
+                    <div class="form-section">
+                        <h2>1. Livestock Farmers</h2>
+                        <div>
+                            <label for="lf-name">a Name:</label>
+                            <input type="text" id="lf-name" name="lf-name" required>
+                        </div>
+                        <div>
+                            <label for="lf-id">b.ID No:</label>
+                            <input type="text" id="lf-id" name="lf-id" required>
+                        </div>
+                        <div>
+                            <label for="lf-phone">c.Phone No:</label>
+                            <input type="text" id="lf-phone" name="lf-phone" required>
+                        </div>
+                        <div>
+                            <label for="lf-location">d.Location:</label>
+                            <input type="text" id="lf-location" name="lf-location" required>
+                        </div>
+
+
+                        <h4>e.Number of Goats</h4>
+                        <hr>
+                        <div class="goats">
+                            <div>
+
+                                <label for="lf-male">Male:</label>
+                                <input type="text" id="lf-male" name="lf-male">
+                            </div>
+
+                            <div>
+                                <label for="lf-female">Female:</label>
+                                <input type="text" id="lf-female" name="lf-female">
+                            </div>
+
+
+                            <label for="ageRange">Age range:</label>
+                            <select id="ageRange" name="ageRange" required>
+
+                                {% for key, value in farmers.model.AGE_CHOICES %}
+                                <option value="{{ key }}">{{ value }}</option>
+                                {% endfor %}
+                            </select>
+                            <div>
+                                <label for="lf-age">Age:</label>
+                                <input type="text" name="age_count" id="age_count" min="0" required>
+                            </div>
+
+
+                            <label for="ageRange">Live Weight:</label>
+                            <select id="ageRange" name="ageRange" required>
+                                {% for key, value in farmers.model.WEIGHT_CHOICES %}
+                                <option value="{{ key }}">{{ value }}</option>
+                                {% endfor %}
+                            </select>
+                            <div>
+                                <label for="lf-weight">Weight:</label>
+                                <input type="number" name="weight_count" id="weight_count" min="0" required>
+                            </div>
+                            <hr>
+                        </div>
+
+                        <div>
+                            <label for="lf-offtake">f.No of Goats Sold Weekly (Offtake) for Export:</label>
+                            <input type="number" id="lf-offtake" name="lf-offtake">
+                        </div>
+
+                        <div>
+                            <label for="lf-amount">g.Amount Paid to Farmer:</label>
+                            <input type="text" id="lf-amount" name="lf-amount">
+                        </div>
+
+                        <h3><u>h.Vaccination & Deworming Schedule:</u></h3>
+                        <div>
+                            <label for="lf-vaccine">Types of vaccines:</label>
+                            <input type=" text" id="lf-vaccin" name="lf-vaccin">
+                        </div>
+
+                        <div>
+                            <label for="lf-vaccine">Date administered year-month-dayformat:</label>
+                            <input type=" text" id="lf-vaccine" name="lf-vaccine">
+                        </div>
+
+                        <h4>I.Breeding:</h4>
+                        <hr>
+                        <div>
+                            <h4><u>No of Goats Given to Farmer:</u></h4>
+
+                            <div>
+                                <label for="lf-breeding-no">Tag number</label>
+                                <input type="text" id="lf-breeding-no" name="lf-breeding-no">
+                            </div>
+                            <div>
+                                <label for="lf-breeding-no">new Breeding</label>
+                                <input type="text" id="lf-breeding-no" name="lf-breeding-no">
+                            </div>
+
+                            <hr>
+                        </div>
+
+                        <div>
+                            <label for="lf-traceability">Tracking & Traceability:</label>
+                            <input id="lf-traceability" name="lf-traceability"></input>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="fodder">
+                    <div class="form-section">
+                        <h2>2. Fodder Farmers</h2>
+                        <label for="ff-name">Name:</label>
+                        <input type="text" id="ff-name" name="ff-name" required>
+
+                        <label for="ff-id">ID No:</label>
+                        <input type="text" id="ff-id" name="ff-id" required>
+
+                        <label for="ff-phone">Phone No:</label>
+                        <input type="text" id="ff-phone" name="ff-phone" required>
+
+                        <label for="ff-location">Location:</label>
+                        <input type="text" id="ff-location" name="ff-location" required>
+
+                        <h4>Land Acreage for Fodder Growing:</h4>
+                        <label for="ff-leased">Leased:</label>
+                        <input type="text" id="ff-leased" name="ff-leased">
+
+                        <label for="ff-sharing">Sharing Model:</label>
+                        <input type="text" id="ff-sharing" name="ff-sharing"></input type="text">
+
+                        <label for="ff-yield">Yield per Harvest:</label>
+                        <input type="text" id="ff-yield" name="ff-yield">
+                    </div>
+                </section>
+                <section id="infrastracture">
+                    <h2>3.Infrastructure</h2>
+                    <div class="form-sinput" type="text">
+                        <h4>a.Borehole</h4>
+                        <label for=" infra-locat">Location:</label>
+                        <input type=" text" id="infra-location" name="infra-location">
+
+                        <label for="infra-water">Amount of Water Used:</label>
+                        <input type="text" id="infra-water" name="infra-water">
+
+                        <label for="infra-people">No of People Using It:</label>
+                        <input type="text" id="infra-people" name="infra-people">
+
+                        <h4>b.Hay Storage</h4>
+                        <label for="infra-bales-stored">No of Bales Stored:</label>
+                        <input type="text" id="infra-bales-stored" name="infra-bales-stored">
+
+                        <label for="infra-bales-sold">No of Bales Given / Sold to Livestock Farmers:</label>
+                        <input type="text" id="infra-bales-sold" name="infra-bales-sold">
+
+                        <label for="infra-revenue">Revenue Made After Selling Surplus:</label>
+                        <input type="text" id="infra-revenue" name="infra-revenue">
+                    </div>
+                </section>
+
+                <section id="Capacity">
+                    <div class="form-section">
+                        <h2>4. Capacity Building</h2>
+                        <label for="cb-trainings">No of Trainings:</label>
+                        <input type="text" id="cb-trainings" name="cb-trainings">
+
+                        <label for="cb-modules">Modules:</label>
+                        <input type="text" id="cb-modules" name="cb-modules">
+                    </div>
+                </section>
+                <button class="inputbutton" type="submit">Submit</button>
+
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
